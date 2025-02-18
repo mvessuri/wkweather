@@ -1,0 +1,8 @@
+name: 'wkWeather'
+type: module
+description: 'A simple weather module to demostrate Drupal AI Agents'
+package: Custom
+core_version_requirement: ^10 || ^11
+configure: wkweather.config_form
+dependencies:
+  - key:key

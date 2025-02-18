@@ -1,0 +1,36 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.3.x/core/assets/schemas/v1/metadata.schema.json
+
+# The human readable name.
+name: Weather
+
+# The human readable description.
+description: Displays weather information for a specific location
+
+# The machine name of the component.
+type: object
+
+props:
+  location:
+    type: string
+    title: Location
+  condition:
+    type: string
+    title: Condition
+  icon:
+    type: string
+    title: Icon
+  temperature:
+    type: string
+    title: Temperature
+  wind:
+    type: string
+    title: Wind
+  wind_direction:
+    type: string
+    title: Wind Direction
+  unit:
+    type: string
+    title: Unit
+    enum:
+        - metric
+        - imperial

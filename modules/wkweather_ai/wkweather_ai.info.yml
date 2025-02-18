@@ -1,0 +1,8 @@
+name: 'wkWeather AI Agent'
+type: module
+description: 'AI Agent for wK Weather'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - ai_agents:ai_agents
+  - wkweather:wkweather

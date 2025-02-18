@@ -1,0 +1,4 @@
+services:
+  wkweather.weather:
+    class: Drupal\wkweather\WeatherService
+    arguments: ['@http_client', '@config.factory', '@key.repository']

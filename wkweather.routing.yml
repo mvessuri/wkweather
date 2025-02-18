@@ -1,0 +1,24 @@
+wkweather.controller_page:
+  path: '/weather'
+  defaults:
+    _controller: '\Drupal\wkweather\Controller\WeatherController::weather'
+    _title: 'Weather Page'
+  requirements:
+    _permission: 'access content'
+
+wkweather.settings.menu:
+  path: '/admin/config/wkweather'
+  defaults:
+    _title: 'wK Weather'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'access administration pages'
+
+wkweather.config_form:
+  path: '/admin/config/wkweather/config'
+  defaults:
+    _form: 'Drupal\wkweather\Form\wkWeatherConfigurationForm'
+    _title: 'Weather Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+

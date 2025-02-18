@@ -1,0 +1,11 @@
+wkweather.admin_settings:
+  title: 'wK Weather'
+  description: 'Settings for wK Weather'
+  parent: system.admin_config
+  route_name: wkweather.settings.menu
+
+wkweather.admin_page:
+  title: 'wK Weather Configuration'
+  description: 'wK Weather Configuration'
+  parent: wkweather.admin_settings
+  route_name: wkweather.config_form

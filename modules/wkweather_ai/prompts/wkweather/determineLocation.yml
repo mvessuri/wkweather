@@ -1,0 +1,27 @@
+preferred_model: gpt-4o
+preferred_llm: openai
+is_triage: true
+prompt:
+  introduction: >
+    You are a developer that can change the configuration of the Drupal Weather module. Based on the following
+    context of a task description and comments, could you figure out which location they are referring to?
+
+    If they are asking a question, do not add any other action.
+  possible_actions:
+    configure: If you did or did not find the location.
+    question: If the user is asking a question related to the weather.
+    fail: If the ask is unrelated to the weather.
+  formats:
+    - action: action id from list.
+      location: If a valid location was found, the name of the location. Not needed for questions.
+      fail_reason: The message to show if the action is fail.
+  one_shot_learning_examples:
+    - action: configure
+      location: Buenos Aires, Argentina
+    - action: configure
+      location: New York, NY
+    - action: configure
+      location: London, UK
+    - action: question
+    - action: fail
+      fail_reason: "This question is not related to weather."

@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme for a weKnow Hello weather block.
+ *
+ * Available variables:
+ * - location: The location of the weather.
+ * - temperature: The temperature of the weather.
+ * - weather_icon: The weather icon.
+ * - weather_description: The weather description.
+ * - wind: The wind speed.
+ * - wind_direction: The wind direction.
+ * - humidity: The humidity.
+ * - precipitation: Precipitation ammount.
+ * - icon: The weather image url.
+ */
+#}
+
+<div id="weather_wrapper">
+	<div class="weatherCard">
+		<div class="currentTemp">
+			<span class="temp">{{ temperature }}<span class="unit">{{ unit == 'metric' ? '&deg;C' : '&deg;F' }}</span></span>
+			<span class="location">{{ location }}</span>
+		</div>
+		<div class="currentWeather">
+			<span class="conditions">
+			<span class="icon">
+				<img alt="{{ condition }}" src="{{ icon }}" />
+			</span>
+			<div class="condition">{{ condition }}</div>
+			</span>
+			<div class="info">
+				<div class="rain">{{ precipitation }} {{ unit == 'metric' ? 'mm' : 'in' }}</div>
+				<div class="wind">{{ wind }} {{ unit == 'metric' ? 'km/h' : 'mph' }} {{ wind_direction }}</div>
+			</div>
+		</div>
+	</div>
+</div>
