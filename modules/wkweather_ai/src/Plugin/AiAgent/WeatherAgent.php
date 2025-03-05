@@ -79,7 +79,7 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
     return [
       'wkweather'  => [
         'name' => 'wK Weather Agent',
-        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall. You do no need to ask for a city or location use the configuration. It is also able to ask questions about the weather configuration.',
+        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall. You do no need to ask for a city or location use the configuration. It is also able to answer questions about the weather configuration.',
         'inputs' => [
           'free_text' => [
             'name' => 'prompt',
