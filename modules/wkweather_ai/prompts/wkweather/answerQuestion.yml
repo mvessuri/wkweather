@@ -13,7 +13,7 @@ prompt:
     You will be give the current configuration of the Drupal Weather module, and the current weather conditions for the configured location.
 
     Only one answer is needed and only set can_answer when you have enough
-    information to answer the question.
+    information to answer the question. Answer in plain text without formating.
   formats:
     - action: Should always be set to answer
       answer: A human readable answer to the user.
