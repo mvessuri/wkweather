@@ -11,6 +11,7 @@ use Drupal\ai_agents\PluginInterfaces\AiAgentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\wkweather\WeatherServiceInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Plugin implementation of the wK Weather Agent.
@@ -45,12 +46,20 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
   protected ConfigFactoryInterface $config;
 
   /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected LoggerInterface $logger;
+
+  /**
    * {@inheritDoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $parent_instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
     $parent_instance->config = $container->get('config.factory');
     $parent_instance->weatherService = $container->get('wkweather.weather');
+    $parent_instance->logger = $container->get('logger.factory')->get('wkweather');
     return $parent_instance;
   }
 
@@ -70,7 +79,7 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
     return [
       'wkweather'  => [
         'name' => 'wK Weather Agent',
-        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall, no need to ask for a city. It is also able to ask questions about the weather configuration.',
+        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall. You do no need to ask for a city or location use the configuration. It is also able to ask questions about the weather configuration.',
         'inputs' => [
           'free_text' => [
             'name' => 'prompt',
@@ -217,6 +226,9 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
         $conf->set('city', $this->data[0]['location']);
         $conf->set('unit', 'metric');
         $conf->save();
+
+        // Log the configuration change.
+        $this->logger->notice('The city has been configured to @city in metric units.', ['@city' => $this->data[0]['location']]);
 
         $message = $this->t('The city has been configured to @city.', ['@city' => $this->data[0]['location']]);
         return $message;
