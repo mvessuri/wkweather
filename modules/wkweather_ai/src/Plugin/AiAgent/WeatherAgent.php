@@ -2,6 +2,7 @@
 
 namespace Drupal\wkweather_ai\Plugin\AiAgent;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -79,7 +80,7 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
     return [
       'wkweather'  => [
         'name' => 'wK Weather Agent',
-        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall. You do no need to ask for a city or location use the configuration. It is also able to answer questions about the weather configuration.',
+        'description' => 'This is able to configure the weather page to display the weather for a city and answer questions about the weather conditions for the configured location, including temperature, wind information, and rainfall. This can answer how is the weather without specifying a city or location. You do no need to ask for a city or location use the configuration. It is also able to answer questions about the weather configuration.',
         'inputs' => [
           'free_text' => [
             'name' => 'prompt',
@@ -129,7 +130,6 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
     $data = $this->agentHelper->runSubAgent('determineLocation', []);
 
     if (isset($data[0]['action']) && in_array($data[0]['action'], ['configure'])) {
-
       $this->data = $data;
       return $data[0]['action'];
     }
@@ -237,6 +237,17 @@ class WeatherAgent extends AiAgentBase implements ContainerFactoryPluginInterfac
         $message = 'We could not figure out what you wanted to do.';
     }
     return $message;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function hasAccess() {
+    // Check for permissions.
+    if (!$this->currentUser->hasPermission('administer site configuration')) {
+      return AccessResult::forbidden();
+    }
+    return parent::hasAccess();
   }
 
 }
